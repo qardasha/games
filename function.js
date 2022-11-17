@@ -240,6 +240,7 @@ function verifyInput(event) {
 let scd_ID;
 
 function submitClicked(event) {
+	event.preventDefault();
 	if (canSubmit) {
 		event.target.style.display = "none";
 		username = event.target.elements.name.value;
