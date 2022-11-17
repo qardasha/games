@@ -16,7 +16,7 @@
 			<div id="splash-credit">© 2022 Maxuo Studios<br><span style="font-size:15px">Game developed by Mahmoud</span></div>
 		</div>
 		
-		<form id="input-name" oninput="verifyInput(event)" onsubmit="submitClicked(event)">
+		<div id="input-name" oninput="verifyInput(event)" onclick="submitClicked(event)">
 			<label>Name</label>
 			<input class="input" type="text" name="name">
 			<br>
@@ -26,7 +26,7 @@
 			<input class="submit" type="button" name="submit">
 			
 			<button onclick="viewHighscore()"></button>
-		</form>
+		</div>
 		
 		<div id="highscore-info"></div>
 		
