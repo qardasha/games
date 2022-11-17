@@ -1,73 +1,295 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Page Title</title>
-	</head>
-	<body>
-		<div id="wrapper">
-		
-		<div id="splash-screen">
-			<div></div>
-			<img id="splash-image" src="https://media.discordapp.net/attachments/1041716359354134650/1042754793862598747/3685532C-F1CE-4DB3-BE46-153DE550B19A.png">
-			<div id="splash-credit">© 2022 Maxuo Studios<br><span style="font-size:15px">Game developed by Mahmoud</span></div>
-		</div>
-		
-		<form id="input-name" oninput="verifyInput(event)" onsubmit="submitClicked(event)">
-			<label>Name</label>
-			<input class="input" type="text" name="name">
-			<br>
-			<label>Code</label>
-			<input class="input" type="text" name="code" maxlength="6" oninput="verifyInput(event)">
-			<br>
-			<input class="submit" type="submit" name="submit">
-			
-			<button onclick="viewHighscore()"></button>
-		</form>
-		
-		<div id="highscore-info"></div>
-		
-		<div id="start-countdown"></div>
-		
-		<div id="finish-screen" style="display:none">
-			<div>Player</div>
-			<div id="username-text"></div>
-			<br>
-			<div>Score</div>
-			<div id="final-score"></div>
-			<br>
-			<div id="new-highscore" style="display:none">NEW</div>
-			<div>Highscore</div>
-			<div id="highscore-text"></div>
-			<br>
-			<button id="play-again" onclick="resetGame()">Play Again</button>
-		</div>
-		
-		<div id="round-info">
-			<div id="timer-text">1:00</div>
-				<div id="points">
-					<p id=points-count>0</p>
-				</div>
-			<div id="points-earnt-count"></div>
-			
-			<!--<button id="reset-button" onclick="resetButtonFunc()">⎌</button>-->
-		</div>
-		
-		<div id="countdown"></div>
-		
-		<div id="frame" onclick="createArrow()">
-			<img id="bg" src="https://media.discordapp.net/attachments/1041716359354134650/1042739457381629952/7B4773D6-A9F4-4825-BFF8-D1DE6FA8EA9B.png">
-			<div class="target">
-				<div>
-					<div>
-						<div>
-							<div>
-								<div></div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		</div>
-	</body>
-</html>
+body {
+	font-family: arial;
+	font-weight: bold;
+	background-image: url("https://images.rawpixel.com/image_800/czNmcy1wcml2YXRlL3Jhd3BpeGVsX2ltYWdlcy93ZWJzaXRlX2NvbnRlbnQvbHIvdjQxMC1zYXNpLTYxLWVpZG11YmFyYWtfMl8yLmpwZw.jpg?s=hH0rPvpwKZ6mPujEaEe62gK82Jz4XK0LiklOQeNosaw");
+	display: flex;
+	justify-content: center;
+	-webkit-touch-callout: none; /* iOS Safari */
+	-webkit-user-select: none; /* Safari */
+	-moz-user-select: none; /* Old versions of Firefox */
+	-ms-user-select: none; /* Internet Explorer/Edge */
+	user-select: none; /* Non-prefixed version, currently supported by Chrome, Edge, Opera and Firefox */
+}
+
+#wrapper {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	justify-content: center;
+	align-items: center;
+	border: 2px #4a4a4a solid;
+}
+
+#splash-screen > * {
+	width: 100%;
+	height: 560px;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: 20;
+}
+
+#splash-screen > img {
+	object-position: 0 -80px;
+}
+
+#splash-credit {
+	color: white;
+	width: 100%;
+	height: 20px;
+	bottom: 60px;
+	font-size: 17px;
+	font-weight: normal;
+	text-align: center;
+}
+
+.earnt-explosion, .loss-explosion {
+	position: absolute;
+	width: 20px;
+	height: 20px;
+	background-color: lightgreen;
+	border-radius: 50%;
+	opacity: 50%;
+}
+
+.loss-explosion { background-color: red; }
+
+#splash-screen > :nth-child(1) {
+	background-color: darkblue;
+}
+
+#splash-image {
+	object-fit: cover;
+	animation: fadeIn 3s;
+}
+
+@keyframes fadeIn {
+	0% { opacity: 0; }
+	100% { opacity: 1; }
+}
+
+#input-name, #finish-screen {
+	position: absolute;
+	width: 300px;
+	height: 200px;
+	z-index: 10;
+	background-color: #222128;
+	border: 5px #5c42d1 solid;
+	border-radius: 5px;
+	color: white;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+}
+
+#new-highscore {
+	color: red;
+}
+
+#finish-screen {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 270px;
+}
+
+#username-text {
+	font-size: 20px;
+}
+
+#final-score {
+	font-size: 25px; 
+}
+
+#username-text, #final-score, #highscore-text {
+	font-weight: normal;
+}
+
+#reset-button {
+	position: absolute;
+	right: 5px;
+	border: none;
+	outline: none;
+	border-radius: 3px;
+	font-size: 30px;
+	width: 40px;
+	height: 40px;
+}
+
+#play-again {
+	border: none;
+	outline: none;
+	border-radius: 3px;
+	padding: 10px;
+	font-size: 17px;
+	color: darkblue;
+}
+
+.input {
+	border: 1px solid black;
+	text-align: center;
+	font-size: 20px;
+	width: 150px;
+}
+
+.submit {
+	background-color: darkgrey;
+	width: 80px;
+	height: 30px;
+}
+
+#start-countdown {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 5;
+	color: green;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 10px;
+	font-size: 60px;
+	-webkit-text-stroke: 2px white;
+	pointer-events: none;
+}
+
+#round-info {
+	background-color: #1a1a1a;
+	width: 900px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 5px;
+	padding-right: 0;
+}
+
+#timer-text, #points {
+	width: 90px;
+	height: 40px;
+	background-color: #222128;
+	border: 3px solid #5c42d1;
+	color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 5px;
+}
+
+#points-earnt-count {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	height: 40px;
+}
+
+#countdown {
+	color: red;
+	font-size: 50px;
+	position: absolute;
+	top: 0;
+}
+
+#frame {
+	width: 100%;
+	height: 500px;
+	border: 1px solid black;
+	position: relative;
+	overflow: hidden;
+	display: flex;
+	justify-content: center;
+}
+
+#bg {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: -10;
+	filter: brightness(70%);
+	object-fit: cover;
+}
+
+.arrow {
+	width: 70px;
+	height: 30px;
+	position: absolute;
+}
+
+.target {
+	position: absolute;
+	width: 60px;
+	height: 140px;
+	display: flex;
+	align-items: center;
+}
+
+.target > div {
+	width: 40px;
+	height: 100px;
+	position: absolute;
+	border-radius: 50%;
+	background-color: red;
+	display: flex;
+	align-items: center;
+	border: 3px solid white;
+	padding-right: 17px;
+}
+
+
+.target > div > div {
+	width: 40px;
+	height: 80px;
+	border-radius: 50%;
+	background-color: white;
+	display: flex;
+	align-items: center;
+	position: absolute;
+	left: 3px;
+	border-left: 3px crimson solid;
+	border-right: 5px crimson solid;
+	border-top: 5px crimson solid;
+	border-bottom: 5px crimson solid;
+}
+
+.target > div > div > div {
+	width: 30px;
+	height: 60px;
+	border-radius: 50%;
+	background-color: red;
+	position: absolute;
+	left: 3px;
+	display: flex;
+	align-items: center;
+}
+
+.target > div > div > div > div {
+	width: 20px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: white;
+	position: absolute;
+	left: 3px;
+	display: flex;
+	align-items: center;
+}
+
+.target > div > div > div > div > div {
+	width: 10px;
+	height: 20px;
+	border-radius: 50%;
+	background-color: red;
+	position: absolute;
+	left: 3px;
+	display: flex;
+	align-items: center;
+}
+
+.earnt-display {
+	color: green;
+}
+
+.loss-display {
+	color: red;
+}
