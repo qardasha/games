@@ -242,8 +242,8 @@ let scd_ID;
 function submitClicked(event) {
 	event.preventDefault();
 	if (canSubmit) {
-		event.target.style.display = "none";
-		username = event.target.elements.name.value;
+		event.target.parentNode.style.display = "none";
+		username = event.target.parentNode.elements.name.value;
 		username_text.innerHTML = username;
 		scd_ID = window.setInterval(startCountdown, 1000);
 	}
