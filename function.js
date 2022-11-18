@@ -265,7 +265,7 @@ window.addEventListener("keypress", function(event) {
 	if (event.key == "Enter") {
 		event.preventDefault();
 	}
-}
+});
 
 let startCountdownDiv = document.getElementById("start-countdown");
 let startCountdownTime = 4;
