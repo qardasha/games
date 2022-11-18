@@ -254,10 +254,10 @@ let scd_ID;
 
 function submitClicked(event) {
 	if (canSubmit) {
-		event.target.parentNode.style.display = "none";
-		username = event.target.parentNode.target.elements.name.value;
+		username = event.target.parentNode.elements.name.value;
 		username_text.innerHTML = username;
 		scd_ID = window.setInterval(startCountdown, 1000);
+		event.target.parentNode.style.display = "none";
 	}
 }
 
