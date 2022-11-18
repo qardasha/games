@@ -41,6 +41,7 @@ body {
 	font-size: 17px;
 	font-weight: normal;
 	text-align: center;
+	animation: fadeIn 3s;
 }
 
 .earnt-explosion, .loss-explosion {
