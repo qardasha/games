@@ -82,12 +82,25 @@ function moveArrows() {
 		}
 		
 		if (parseInt(arrows[i].style.left) >= 900) {
+		
 			let pointsLost;
 			
-			if (targetSpeed != 0) {
-				pointsLost = (targetSpeed * 100) - 20;
+			switch (targetSpeed) {
+			    case 0:
+			    	pointsLost = 100;
+			    	break;
+			    case 1:
+			    	pointsLost = 80;
+			    	break;
+			    case 2:
+			    	pointsLost = 60;
+			    	break;
+			    case 3:
+			    	pointsLost = 40;
+			    	break;
+			    case 4:
+			    	pointsLost = 20;
 			}
-			else pointsLost = 75;
 			
 			let lossExplosion = document.createElement("div");
 			lossExplosion.classList.add("loss-explosion");
@@ -240,10 +253,9 @@ function verifyInput(event) {
 let scd_ID;
 
 function submitClicked(event) {
-	event.preventDefault();
 	if (canSubmit) {
-		event.target.parentNode.style.display = "none";
-		username = event.target.parentNode.elements.name.value;
+		event.target.style.display = "none";
+		username = event.target.elements.name.value;
 		username_text.innerHTML = username;
 		scd_ID = window.setInterval(startCountdown, 1000);
 	}
